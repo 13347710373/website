@@ -25,18 +25,23 @@ SECRET_KEY = '3u6#0@1yene**l9gmnz28p1-(b4-u^z!wol_ze9!5d5v7tw_o1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
+# bilibili path
+BILIBILI = "bilibili"
+BILIBILI_TEMP = os.path.join(BASE_DIR, "bilibili/dist")
+BILIBILI_TEMP_STATIC = os.path.join(BASE_DIR, "bilibili/dist/static")
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    BILIBILI
 ]
 
 MIDDLEWARE = [
@@ -51,10 +56,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'website.urls'
 
+STATICFILES_DIRS = [
+    BILIBILI_TEMP_STATIC
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BILIBILI_TEMP],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,8 +84,11 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'root',
+        'PASSWORD': '12345678',
+        'NAME': 'website',
+        'PORT': 3306
     }
 }
 
